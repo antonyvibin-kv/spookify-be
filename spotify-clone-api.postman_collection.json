@@ -1,0 +1,357 @@
+{
+  "info": {
+    "name": "Spotify Clone API",
+    "description": "API collection for Spotify Clone application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"johndoe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Songs",
+      "item": [
+        {
+          "name": "Get All Songs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/songs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "songs"]
+            }
+          }
+        },
+        {
+          "name": "Get Song by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/songs/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "songs", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"]
+            }
+          }
+        },
+        {
+          "name": "Search Songs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/songs/search/queen",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "songs", "search", "queen"]
+            }
+          }
+        },
+        {
+          "name": "Add Song to Favorites",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/songs/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/favorite",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "songs", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "favorite"]
+            }
+          }
+        },
+        {
+          "name": "Remove Song from Favorites",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/songs/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/favorite",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "songs", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "favorite"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Playlists",
+      "item": [
+        {
+          "name": "Get All Public Playlists",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/playlists",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playlists"]
+            }
+          }
+        },
+        {
+          "name": "Get User's Playlists",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/playlists/my-playlists",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playlists", "my-playlists"]
+            }
+          }
+        },
+        {
+          "name": "Create Playlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"My New Playlist\",\n    \"description\": \"A collection of my favorite songs\",\n    \"isPublic\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/playlists",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playlists"]
+            }
+          }
+        },
+        {
+          "name": "Add Song to Playlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/playlists/11111111-aaaa-aaaa-aaaa-aaaaaaaaaaaa/songs/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playlists", "11111111-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "songs", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"]
+            }
+          }
+        },
+        {
+          "name": "Remove Song from Playlist",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/playlists/11111111-aaaa-aaaa-aaaa-aaaaaaaaaaaa/songs/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playlists", "11111111-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "songs", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"]
+            }
+          }
+        },
+        {
+          "name": "Update Playlist",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Playlist Name\",\n    \"description\": \"Updated description\",\n    \"isPublic\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/playlists/11111111-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playlists", "11111111-aaaa-aaaa-aaaa-aaaaaaaaaaaa"]
+            }
+          }
+        },
+        {
+          "name": "Delete Playlist",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/playlists/11111111-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playlists", "11111111-aaaa-aaaa-aaaa-aaaaaaaaaaaa"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Update User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"updatedusername\",\n    \"email\": \"updated@example.com\",\n    \"profilePicture\": \"https://example.com/new-profile.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Get User's Favorite Songs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/favorites",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "favorites"]
+            }
+          }
+        },
+        {
+          "name": "Get User's Playlists",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/playlists",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "playlists"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": "your_jwt_token_here"
+    }
+  ]
+} 
