@@ -33,6 +33,53 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
+ * /api/playlists/{id}:
+ *   get:
+ *     summary: Get a playlist by ID
+ *     tags: [Playlists]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Playlist details with songs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Playlist'
+ *       404:
+ *         description: Playlist not found
+ */
+router.get('/:id', async (req, res) => {
+  try {
+    const playlist = await Playlist.findOne({
+      where: { id: req.params.id },
+      include: [{ model: Song }]
+    });
+
+    if (!playlist) {
+      return res.status(404).json({ error: 'Playlist not found' });
+    }
+
+    // If playlist is private, check if user is the owner
+    if (!playlist.isPublic) {
+      if (!req.user || req.user.id !== playlist.userId) {
+        return res.status(403).json({ error: 'Access denied' });
+      }
+    }
+
+    res.json(playlist);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * @swagger
  * /api/playlists/my-playlists:
  *   get:
  *     summary: Get user's playlists

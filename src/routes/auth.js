@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { Op } = require('sequelize');
 
 /**
  * @swagger
@@ -40,7 +41,7 @@ router.post('/register', async (req, res) => {
     
     const existingUser = await User.findOne({
       where: {
-        [sequelize.Op.or]: [{ email }, { username }]
+        [Op.or]: [{ email }, { username }]
       }
     });
 
