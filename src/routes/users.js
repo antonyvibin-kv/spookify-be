@@ -3,7 +3,22 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const { User, Song, Playlist } = require('../models');
 
-// Get user profile
+/**
+ * @swagger
+ * /api/users/profile:
+ *   get:
+ *     summary: Get user profile
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User profile with favorites and playlists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ */
 router.get('/profile', auth, async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id, {
@@ -19,7 +34,38 @@ router.get('/profile', auth, async (req, res) => {
   }
 });
 
-// Update user profile
+/**
+ * @swagger
+ * /api/users/profile:
+ *   put:
+ *     summary: Update user profile
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               profilePicture:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
 router.put('/profile', auth, async (req, res) => {
   try {
     const { username, email, profilePicture } = req.body;
@@ -41,7 +87,24 @@ router.put('/profile', auth, async (req, res) => {
   }
 });
 
-// Get user's favorite songs
+/**
+ * @swagger
+ * /api/users/favorites:
+ *   get:
+ *     summary: Get user's favorite songs
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of user's favorite songs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Song'
+ */
 router.get('/favorites', auth, async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id);
@@ -52,7 +115,24 @@ router.get('/favorites', auth, async (req, res) => {
   }
 });
 
-// Get user's playlists
+/**
+ * @swagger
+ * /api/users/playlists:
+ *   get:
+ *     summary: Get user's playlists
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of user's playlists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Playlist'
+ */
 router.get('/playlists', auth, async (req, res) => {
   try {
     const playlists = await Playlist.findAll({
