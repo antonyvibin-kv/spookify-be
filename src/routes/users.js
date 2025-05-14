@@ -24,7 +24,11 @@ router.get('/profile', auth, async (req, res) => {
     const user = await User.findByPk(req.user.id, {
       attributes: { exclude: ['password'] },
       include: [
-        { model: Song, as: 'favorites' },
+        { 
+          model: Song,
+          as: 'favorites',
+          through: { attributes: [] } // Exclude junction table attributes
+        },
         { model: Playlist }
       ]
     });
